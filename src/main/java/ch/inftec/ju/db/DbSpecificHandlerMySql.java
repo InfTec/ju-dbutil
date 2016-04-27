@@ -9,7 +9,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import ch.inftec.ju.db.JuConnUtil.MetaDataInfo.SchemaInfo;
 import ch.inftec.ju.util.AssertUtil;
-import ch.inftec.ju.util.XString;
 
 /**
  * DbSpecificHandler implementations for MySQL.
@@ -92,7 +91,7 @@ public class DbSpecificHandlerMySql extends DbSpecificHandlerDefault {
 				jt.execute(String.format("DROP SCHEMA `%s`", schemaInfo.getName()));
 				
 				for (String user : users) {
-					int cnt = jt.queryForInt(String.format("select count(*) from mysql.user where user = '%s'", user));
+					int cnt = jt.queryForObject(String.format("select count(*) from mysql.user where user = '%s'", user), Integer.class);
 					if (cnt > 0) {
 						jt.execute(String.format("DROP USER `%s`", user));
 					}

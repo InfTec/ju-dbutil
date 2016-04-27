@@ -397,7 +397,7 @@ public class JuDbUtils {
 	public void oracleSequenceSetNextVal(String sequenceName, long nextVal) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(this.dataSource);
 		
-		Long currentValue = jdbcTemplate.queryForLong(String.format("SELECT %s.NEXTVAL from dual", sequenceName));
+		Long currentValue = jdbcTemplate.queryForObject(String.format("SELECT %s.NEXTVAL from dual", sequenceName), Long.class);
 		Long increment = nextVal - currentValue - 1;
 		jdbcTemplate.execute(String.format("ALTER SEQUENCE %s INCREMENT BY %d", sequenceName, increment));
 		jdbcTemplate.execute(String.format("SELECT %s.NEXTVAL from dual", sequenceName));
