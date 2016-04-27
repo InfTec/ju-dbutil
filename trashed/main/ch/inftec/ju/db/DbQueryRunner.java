@@ -1,7 +1,5 @@
 package ch.inftec.ju.db;
 
-import ch.inftec.ju.util.change.DbAction;
-
 public interface DbQueryRunner {
 	/**
 	 * Executes a select query and returns the result as an array of DbRow instances.

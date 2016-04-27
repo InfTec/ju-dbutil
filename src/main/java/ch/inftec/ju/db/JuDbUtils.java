@@ -16,7 +16,6 @@ import javax.persistence.Persistence;
 import javax.persistence.metamodel.ManagedType;
 import javax.sql.DataSource;
 
-import org.apache.commons.dbutils.DbUtils;
 import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.jdbc.Work;
@@ -206,7 +205,7 @@ public class JuDbUtils {
 	public static void commitAndClose(Connection conn) throws JuDbException {
 		try {
 			log.debug("Commiting and closing connection [ID=" + JuObjectUtils.getIdentityString(conn) + "]");
-			DbUtils.commitAndClose(conn);
+			doCommitAndClose(conn);
 		} catch (SQLException ex) {
 			throw new JuDbException("Couldn't commit and close connection", ex);
 		}
@@ -220,7 +219,7 @@ public class JuDbUtils {
 	public static void rollbackAndClose(Connection conn) throws JuDbException {
 		try {
 			log.debug("Rolling back and closing connection [ID=" + JuObjectUtils.getIdentityString(conn) + "]");
-			DbUtils.rollbackAndClose(conn);
+			doRollbackAndClose(conn);
 		} catch (SQLException ex) {
 			throw new JuDbException("Couldn't roll back and close connection", ex);
 		}
@@ -233,7 +232,7 @@ public class JuDbUtils {
 	public static void closeQuietly(Connection conn) {
 		try {
 			log.debug("Closing connection [ID=" + JuObjectUtils.getIdentityString(conn) + "]");
-			DbUtils.close(conn);
+			doClose(conn);
 		} catch (SQLException ex) {
 			log.error("Couldn't close connection", ex);
 		}
@@ -245,7 +244,7 @@ public class JuDbUtils {
 	 */
 	public static void closeQuietly(ResultSet rs) {
 		try {
-			DbUtils.close(rs);
+			doClose(rs);
 		} catch (SQLException ex) {
 			log.error("Couldn't close connection", ex);
 		}
@@ -403,5 +402,39 @@ public class JuDbUtils {
 		jdbcTemplate.execute(String.format("ALTER SEQUENCE %s INCREMENT BY %d", sequenceName, increment));
 		jdbcTemplate.execute(String.format("SELECT %s.NEXTVAL from dual", sequenceName));
 		jdbcTemplate.execute(String.format("ALTER SEQUENCE %s INCREMENT BY 1", sequenceName));
+	}
+
+	// Copied from apache-commons-dbutils
+
+	private static void doCommitAndClose(Connection conn) throws SQLException {
+		if (conn != null) {
+			try {
+				conn.commit();
+			} finally {
+				conn.close();
+			}
+		}
+	}
+
+	private static void doRollbackAndClose(Connection conn) throws SQLException {
+		if (conn != null) {
+			try {
+				conn.rollback();
+			} finally {
+				conn.close();
+			}
+		}
+	}
+
+	private static void doClose(Connection conn) throws SQLException {
+		if (conn != null) {
+			conn.close();
+		}
+	}
+
+	private static void doClose(ResultSet rs) throws SQLException {
+		if (rs != null) {
+			rs.close();
+		}
 	}
 }

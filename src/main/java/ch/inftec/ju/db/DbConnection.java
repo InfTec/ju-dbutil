@@ -50,12 +50,6 @@ public interface DbConnection {
 	public List<String> getColumnNames(String tableName) throws JuDbException;
 	
 	/**
-	 * Gets a DbQueryRunner instance that is based on this DbConnection.
-	 * @return DbQueryRunner instance
-	 */
-	public DbQueryRunner getQueryRunner();
-	
-	/**
 	 * Gets the raw JDBC connection of the current Spring transaction scope.
 	 * <p>
 	 * Make sure you use it in a Spring transaction scope and don't call any

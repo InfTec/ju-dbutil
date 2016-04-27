@@ -17,10 +17,10 @@ import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 
 import org.hibernate.Session;
-import org.hibernate.ejb.EntityManagerImpl;
 import org.hibernate.ejb.HibernateEntityManagerFactory;
 import org.hibernate.internal.SessionFactoryImpl;
 import org.hibernate.jdbc.Work;
+import org.hibernate.jpa.internal.EntityManagerImpl;
 import org.hibernate.service.jdbc.connections.internal.DatasourceConnectionProviderImpl;
 import org.hibernate.service.jdbc.connections.spi.ConnectionProvider;
 import org.slf4j.Logger;

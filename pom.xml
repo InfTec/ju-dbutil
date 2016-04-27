@@ -4,106 +4,117 @@
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 
+	<!-- Makes project deployable on Central through sonatype -->
 	<parent>
-		<groupId>ch.inftec.ju</groupId>
-		<artifactId>ju</artifactId>
-		<version>4.4</version>
+		<groupId>ch.inftec</groupId>
+		<artifactId>jb</artifactId>
+		<version>3.2</version>
 	</parent>
 
+	<groupId>ch.inftec.ju</groupId>
 	<artifactId>ju-dbutil</artifactId>
-	<name>JU DB-Util</name>
+	<version>6.0-tbd</version>
+	<description>DB related utility functions</description>
 
-	<repositories>
-		<repository>
-			<id>repo</id>
-			<name>repo</name>
-			<releases>
-				<enabled>true</enabled>
-				<checksumPolicy>ignore</checksumPolicy>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
+	<properties>
+		<version.ju-util>6.0-tbd</version.ju-util>
+		<version.junit>4.12</version.junit>
+		<version.hibernate.jpa-2.0-api>1.0.1.Final</version.hibernate.jpa-2.0-api>
+		<version.hibernate>4.1.6.Final</version.hibernate>
+		<version.hibernate.entitymanager>5.0.7.Final</version.hibernate.entitymanager>
+		<version.spring.spring-jdbc>3.2.1.RELEASE</version.spring.spring-jdbc>
+		<version.spring.spring-data-jpa>1.10.1.RELEASE</version.spring.spring-data-jpa>
+	</properties>
 
-			<url>file://${project.basedir}/../repo</url>
-		</repository>
-	</repositories>
-	
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>ju-util</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
+			<version>${version.ju-util}</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
+			<version>${version.junit}</version>
 			<scope>test</scope>
 		</dependency>
 		
 		<dependency>
-			<groupId>commons-dbutils</groupId>
-			<artifactId>commons-dbutils</artifactId>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${version.spring.spring-jdbc}</version>
+			<optional>true</optional>
 		</dependency>
-
+		
 		<dependency>
-			<groupId>org.apache.derby</groupId>
-			<artifactId>derby</artifactId>
-			<scope>test</scope>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.0-api</artifactId>
+			<version>${version.hibernate.jpa-2.0-api}</version>
+			<scope>provided</scope> <!-- We'll expect the JPA API to be present on any project using dbutil -->
 		</dependency>
+		
+<!-- 		<dependency> -->
+<!-- 			<groupId>commons-dbutils</groupId> -->
+<!-- 			<artifactId>commons-dbutils</artifactId> -->
+<!-- 		</dependency> -->
 
-		<dependency>
-			<groupId>com.oracle</groupId>
-			<artifactId>my-ojdbc6</artifactId>
-			<scope>test</scope>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.apache.derby</groupId> -->
+<!-- 			<artifactId>derby</artifactId> -->
+<!-- 			<scope>test</scope> -->
+<!-- 		</dependency> -->
+
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.oracle</groupId> -->
+<!-- 			<artifactId>my-ojdbc6</artifactId> -->
+<!-- 			<scope>test</scope> -->
+<!-- 		</dependency> -->
 		
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
+			<version>${version.hibernate}</version>
 			<optional>true</optional> <!-- Avoid duplicity in containers like JBoss -->
 		</dependency>
 		
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<optional>true</optional> <!-- Avoid duplicity in containers like JBoss -->
-		</dependency>
-		
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
+			<version>${version.hibernate.entitymanager}</version>
 			<optional>true</optional>
 		</dependency>
+		
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework</groupId> -->
+<!-- 			<artifactId>spring-context</artifactId> -->
+<!-- 			<optional>true</optional> -->
+<!-- 		</dependency> -->
 
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<scope>test</scope>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework</groupId> -->
+<!-- 			<artifactId>spring-test</artifactId> -->
+<!-- 			<scope>test</scope> -->
+<!-- 		</dependency> -->
 		
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
+			<version>${version.spring.spring-data-jpa}</version>
 			<optional>true</optional>
 		</dependency>
 		
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jdbc</artifactId>
-			<optional>true</optional>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework</groupId> -->
+<!-- 			<artifactId>spring-jdbc</artifactId> -->
+<!-- 			<optional>true</optional> -->
+<!-- 		</dependency> -->
 
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-core</artifactId>
-			<optional>true</optional>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework.security</groupId> -->
+<!-- 			<artifactId>spring-security-core</artifactId> -->
+<!-- 			<optional>true</optional> -->
+<!-- 		</dependency> -->
 		
 		<dependency>
 			<groupId>org.codehaus.btm</groupId>
@@ -112,5 +123,13 @@
 			<optional>true</optional>
 		</dependency>
 	</dependencies>
-	<description>DB related utility functions</description>
+	
+	<profiles>
+		<profile>
+			<id>ju-workspaceResolution-ju</id>
+			<properties>
+				<version.ju-util>6.0</version.ju-util>
+			</properties>
+		</profile>
+	</profiles>
 </project>

@@ -11,17 +11,13 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.apache.commons.dbutils.QueryRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 
-import ch.inftec.ju.db.DbRowUtils.DbRowsImpl;
 import ch.inftec.ju.util.JuStringUtils;
-import ch.inftec.ju.util.change.DbAction;
-import ch.inftec.ju.util.change.DbActionUtils;
 
 
 /**
@@ -80,11 +76,6 @@ final class DbConnectionImpl implements DbConnection {
 	public List<String> getColumnNames(String tableName) throws JuDbException {
 		DbMetaData md = new DbMetaData();
 		return Arrays.asList(md.getColumnNames(tableName));			
-	}
-	
-	@Override
-	public DbQueryRunner getQueryRunner() {
-		return new DbQueryRunnerImpl(this);
 	}
 	
 	@Override
@@ -204,118 +195,5 @@ final class DbConnectionImpl implements DbConnection {
 	@Override
 	public String toString() {
 		return JuStringUtils.toString(this, "name", this.getName());
-	}
-	
-	/**
-	 * Implementation of the DbQueryRunner interface that works with DbConnection
-	 * instances.
-	 * @author TGDMEMAE
-	 *
-	 */
-	private final class DbQueryRunnerImpl implements DbQueryRunner {
-		private DbConnectionImpl dbConnection;
-		
-		/**
-		 * Creates a new DbQueryRunner using the specified DbConnection.
-		 * @param dbConnection DbConnection instance
-		 */
-		public DbQueryRunnerImpl(DbConnectionImpl dbConnection) {
-			this.dbConnection = dbConnection;
-		}
-		
-		/**
-		 * Gets a connection to the database.
-		 * @return Connection instance
-		 * @throws JuDbException If the connection cannot be established
-		 */
-		private Connection getConnection() throws JuDbException {
-			return this.dbConnection.getConnection();
-		}
-			
-		@Override
-		public DbRowsImpl query(String query, Object... params) throws JuDbException {
-			try {
-				QueryRunner qr = new QueryRunner();
-				return qr.query(this.getConnection(), query, new DbRowResultSetHandler(), this.processParams(params));
-			} catch (SQLException ex) {
-				throw new JuDbException("Couldn't execute query: " + query, ex);
-			}
-		}
-
-		@Override
-		public int update(String query, Object... params) throws JuDbException {
-			try {
-				QueryRunner qr = new QueryRunner();
-				return qr.update(this.getConnection(), query, this.processParams(params));
-			} catch (SQLException ex) {
-				throw new JuDbException("Couldn't execute update: " + query, ex);
-			}
-		}
-		
-		@Override
-		public DbRow primaryKeyQuery(String tableName, Object primaryKeyValue) throws JuDbException {
-			String selectQry = "SELECT * FROM " + tableName + " WHERE " + this.dbConnection.getPrimaryColumnName(tableName) + "=?";
-
-			DbRows dbRows = this.query(selectQry, primaryKeyValue);
-			
-			if (dbRows.getRowCount() > 1) {
-				throw new JuDbException("PrimaryKeyQuery for " + tableName + " with key=" + primaryKeyValue 
-						+ ". Expected exactly 1 row, but got " + dbRows.getRowCount());
-			}
-			
-			return dbRows.getRowCount() == 0 ? null : dbRows.getRow(0);
-		}
-		
-		/**
-		 * Executes a select * query on the specified table that returns no rows. Can be used
-		 * to obtain an empty DbRows instance.
-		 * @param tableName Table name
-		 * @return DbRows instance with no rows
-		 * @throws JuDbException If the query fails
-		 */
-		@Override
-		public DbRow emptyRowQuery(String tableName) throws JuDbException {
-			String selectQry = "SELECT * FROM " + tableName + " WHERE 1=0";
-			return this.query(selectQry).getBaseRow();
-		}
-		
-		@Override
-		public DbAction getUpdateAction(String tableName, Object primaryKeyValue) throws JuDbException {
-			DbRow row = this.primaryKeyQuery(tableName, primaryKeyValue);
-			return row == null ? null : DbActionUtils.newUpdateAction(this.dbConnection, row, tableName).getAction();
-		}
-		
-		@Override
-		public DbAction getInsertAction(String tableName) throws JuDbException {
-			return DbActionUtils.newInsertAction(this.dbConnection, tableName).getAction();
-		}
-		
-		@Override
-		public DbAction getDeleteAction(String tableName, Object primaryKeyValue) throws JuDbException {
-			return DbActionUtils.newDeleteAction(this.dbConnection, tableName, primaryKeyValue);
-		}
-		
-		/**
-		 * Processes the parameters that are send to the QueryRunner.
-		 * <p>
-		 * For instance, this will convert a java.util.Date to a java.sql.Date
-		 * @param object Parameters array
-		 * @return Array with converted parameters
-		 */
-		private Object[] processParams(Object[] params) {
-			Object[] newParams = Arrays.copyOf(params, params.length);
-			
-			for (int i = 0; i < newParams.length; i++) {
-				Object param = newParams[i];
-				
-				if (param != null) {
-					if (param.getClass() == java.util.Date.class) {
-						newParams[i] = new java.sql.Date(((java.util.Date)param).getTime());
-					}
-				}
-			}
-			
-			return newParams;
-		}
 	}
 }
