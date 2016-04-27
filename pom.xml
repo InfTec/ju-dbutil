@@ -13,7 +13,7 @@
 
 	<groupId>ch.inftec.ju</groupId>
 	<artifactId>ju-dbutil</artifactId>
-	<version>6.0-tbd</version>
+	<version>6.0</version>
 	<description>DB related utility functions</description>
 
 	<properties>
