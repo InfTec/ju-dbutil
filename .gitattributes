@@ -1,0 +1,3 @@
+# Set default behaviour. We'll use unix style newline by default for java and xml files.
+*.java text eol=lf
+*.xml text eol=lf

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">	
+
+	<!--
+	<jpa:repositories base-package="ch.inftec.ju.test.spring.data.repos" />
+ 
+	<bean id="dataConfiguration" class="ch.inftec.ju.test.spring.data.SpringDataConfiguration" />
+	<bean id="persistenceExceptionTranslator"
+		class="ch.inftec.ju.test.spring.data.DefaultPersistenceExceptionTranslator" />
+	 -->
+
+	<!-- Enable annotation based configuration (including transactions) -->
+ 	<context:annotation-config />
+ 	<tx:annotation-driven/>
+
+	<!-- Define default persistence.xml, URL and PersistenceUnitName -->
+	<bean id="juPersistenceXmlPath" class="java.lang.String">
+		<constructor-arg type="java.lang.String" value="classpath:ch/inftec/ju/db/persistence.xml"/>
+	</bean>
+	<bean id="juPersistenceUnitName" class="java.lang.String">
+		<constructor-arg type="java.lang.String" value="Derby db-util"/>
+	</bean>
+	<bean id="juConnectionInfo" class="ch.inftec.ju.db.ConnectionInfoImpl">
+		<property name="name" value="Derby Test DB"/>
+		<property name="connectionString" value="jdbc:derby:memory:juDbUtilTest;create=true"/>
+		<property name="userName" value="sa"/>
+		<property name="password" value=""/>
+	</bean>
+	
+	<!-- Define DataSource -->
+	
+	<bean id="juUtilTestDbDataSource" 
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		
+		<property name="url" value="#{juConnectionInfo.connectionString}" />
+		<property name="username" value="#{juConnectionInfo.userName}" />
+		<property name="password" value="#{juConnectionInfo.password}" />
+	</bean>
+
+	<!-- Define and configure the EntityManagerFactory -->
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="juUtilTestDbDataSource"/>
+		<property name="persistenceXmlLocation" value="#{juPersistenceXmlPath}"/>
+		<property name="persistenceUnitName" value="#{juPersistenceUnitName}"/>
+		
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+		</property>
+	</bean>
+
+	<!-- Define the TransactionManager -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.jpa.JpaTransactionManager"/>
+	
+	<!-- Define JdbcTemplate -->
+	<bean id="jdbcTemplate"
+		class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="juUtilTestDbDataSource"/>	
+	</bean>
+
+	<bean id="dbConnection"
+		class="ch.inftec.ju.db.DbConnectionImpl"/>
+</beans>

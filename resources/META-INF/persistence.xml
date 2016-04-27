@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+        http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0">
+	
+	<persistence-unit name="Derby InMemory-DB">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+
+		<class>ch.inftec.ju.db.data.entity.Team</class>
+		<class>ch.inftec.ju.db.data.entity.Player</class>
+
+		<properties>
+
+			<property name="hibernate.dialect" value="org.hibernate.dialect.DerbyDialect" />
+			<property name="hibernate.hbm2ddl.auto" value="create" />
+			<property name="eclipselink.logging.level.sql" value="FINE"/>
+ 			<property name="eclipselink.logging.parameters" value="true"/>			
+
+			<property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:juPersTestDB;create=true" />
+			<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />
+			<property name="javax.persistence.jdbc.user" value="sa" />
+			<property name="javax.persistence.jdbc.password" value="" />
+
+			<property name="ch.inftec.ju.flags" value="connection,test" />
+			
+		</properties>
+	</persistence-unit>
+
+</persistence>

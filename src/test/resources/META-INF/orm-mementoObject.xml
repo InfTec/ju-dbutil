@@ -1,0 +1,16 @@
+<entity-mappings version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm_2_0.xsd">
+	<entity name="MementoObject" class="ch.inftec.ju.util.persistable.MementoObject" access="FIELD">
+		<table name="MEMENTO_OBJECT" />
+	</entity>
+	<entity class="ch.inftec.ju.util.persistable.AttributeObject" access="FIELD">
+		<table name="MEMENTO_ATTRIBUTE" />
+		
+		<attributes>
+			<basic name="key">
+				<column name="keyName"/>
+			</basic> 
+		</attributes>
+	</entity>
+</entity-mappings>

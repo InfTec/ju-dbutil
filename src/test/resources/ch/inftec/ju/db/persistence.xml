@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+        http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0">
+
+	<persistence-unit name="ESW MyTTS //TODO: refactor">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+
+		<properties>
+
+			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />
+			<property name="eclipselink.ddl-generation" value="none" />
+
+			<property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@//eswdev:1521/ESWDEV.SWISSPTT.CH" />
+			<property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver" />
+			<property name="javax.persistence.jdbc.user" value="mytts" />
+			<property name="javax.persistence.jdbc.password" value="esw-mytts" />
+			
+			<property name="ch.inftec.ju.flags" value="connection,esw" />
+
+		</properties>
+	</persistence-unit>
+	
+	<persistence-unit name="Derby db-util">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+
+		<class>ch.inftec.ju.db.data.entity.CustomObject</class>
+
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.DerbyDialect" />
+			<property name="hibernate.hbm2ddl.auto" value="create" />
+
+			<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />
+
+		</properties>
+	</persistence-unit>
+
+	<persistence-unit name="PU_mementoObject //TODO: refactor">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+
+		<mapping-file>META-INF/orm-mementoObject.xml</mapping-file>
+
+		<class>ch.inftec.ju.util.persistable.MementoObject</class>
+		<class>ch.inftec.ju.util.persistable.AttributeObject</class>
+		<class>ch.inftec.ju.util.persistable.TestObject</class>
+
+		<properties>
+
+			<property name="hibernate.dialect" value="org.hibernate.dialect.DerbyDialect" />
+			<property name="hibernate.hbm2ddl.auto" value="create" />
+			<property name="eclipselink.logging.level" value="FINE" />			
+
+			<property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:juMementoTestDB;create=true" />
+			<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />
+			<property name="javax.persistence.jdbc.user" value="sa" />
+			<property name="javax.persistence.jdbc.password" value="" />
+
+		</properties>
+	</persistence-unit>
+</persistence>
