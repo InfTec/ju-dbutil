@@ -21,7 +21,6 @@
 		<version.flyway>2.2.1</version.flyway>
 		<version.javax.transaction>1.1</version.javax.transaction>
 		<version.spring.spring-data-jpa>1.10.1.RELEASE</version.spring.spring-data-jpa>
-		<version.hibernate>4.1.6.Final</version.hibernate>
 		<version.slf4j>1.7.21</version.slf4j>
 		<version.log4j>1.2.17</version.log4j>
 		<version.derby>10.8.2.2</version.derby>
@@ -61,15 +60,9 @@
 			<scope>test</scope>
 		</dependency>
 
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.hibernate</groupId> -->
-<!-- 			<artifactId>hibernate-core</artifactId> -->
-<!-- 		</dependency> -->
-
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<version>${version.hibernate}</version>
 			<scope>test</scope>
 		</dependency>
 		

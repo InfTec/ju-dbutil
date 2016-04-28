@@ -43,7 +43,7 @@ public class JuConnUtilTest extends AbstractDbTest {
 				jt.execute("insert into juConnUtilTestTable (id) values (1)");
 				
 				// Query the table
-				Long id = jt.queryForLong("select id from juConnUtilTestTable where id=1");
+				Long id = jt.queryForObject("select id from juConnUtilTestTable where id=1", Long.class);
 				Assert.assertEquals(new Long(1), id);
 				
 				// Create a new connUtil to make sure we'll see the changes there...
@@ -53,7 +53,8 @@ public class JuConnUtilTest extends AbstractDbTest {
 				connUtil2.doWork(new DbWork() {
 					@Override
 					public void execute(Connection conn) {
-						Long id2 = JuConnUtils.asJdbcTemplate(conn).queryForLong("select id from juConnUtilTestTable where id=1");
+						Long id2 = JuConnUtils.asJdbcTemplate(conn).queryForObject("select id from juConnUtilTestTable where id=1",
+								Long.class);
 						Assert.assertEquals(new Long(1), id2);
 						
 						// Drop table
