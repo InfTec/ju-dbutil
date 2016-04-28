@@ -12,8 +12,6 @@
 	<description>Contains helping classes for DB Unit Testing</description>
 
 	<properties>
-		<version.ju-util>6.0-tbd</version.ju-util>
-		<version.ju-dbutil>6.0-tbd</version.ju-dbutil>
 		<version.dbunit>2.5.0</version.dbunit>
 		<version.hamcrest>1.3</version.hamcrest>
 		<version.javax.transaction>1.1</version.javax.transaction>
@@ -25,13 +23,11 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>ju-util</artifactId>
-			<version>${version.ju-util}</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>ju-dbutil</artifactId>
-			<version>${version.ju-dbutil}</version>
 		</dependency>
 
 		<dependency>
