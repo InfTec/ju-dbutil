@@ -4,7 +4,7 @@ package ch.inftec.ju.db;
 /**
  * Helper class to create DB Schemas (or users).
  * 
- * @author Martin Meyer <martin.meyer@inftec.ch>
+ * @author martin.meyer@inftec.ch
  *
  */
 public class DbSchemaBuilder {

@@ -20,7 +20,7 @@ import ch.inftec.ju.dbutil.test.jta.JtaTest;
  * </ol>
  * Also checkout http://docs.codehaus.org/display/BTM/FAQ#FAQ-WhyisOraclethrowingaXAExceptionduringinitializationofmydatasource?
  *   
- * @author Martin Meyer <martin.meyer@inftec.ch>
+ * @author martin.meyer@inftec.ch
  *
  */
 public class JtaTestOracle extends JtaTest {

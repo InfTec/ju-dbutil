@@ -61,7 +61,7 @@ public class DbTestAnnotationHandler implements Serializable {
 	/**
 	 * Helper class so we can use the annotation info in related classes like DataSetExportSuite.
 	 * 
-	 * @author Martin Meyer <martin.meyer@inftec.ch>
+	 * @author martin.meyer@inftec.ch
 	 * 
 	 */
 	static class DbTestAnnotationInfo implements Serializable {

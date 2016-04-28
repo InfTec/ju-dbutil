@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  * Helper annotation to define environmental variables for tests.
- * @author Martin Meyer <martin.meyer@inftec.ch>
+ * @author martin.meyer@inftec.ch
  *
  */
 @Retention(RetentionPolicy.RUNTIME)

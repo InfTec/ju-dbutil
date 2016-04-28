@@ -9,7 +9,7 @@ import ch.inftec.ju.testing.db.JuAssumeUtils;
 
 /**
  * Test for ju-util JuSecurityUtils as we need the JuAssumeUtils here...
- * @author Martin Meyer <martin.meyer@inftec.ch>
+ * @author martin.meyer@inftec.ch
  *
  */
 public class StrongSecurityTest {

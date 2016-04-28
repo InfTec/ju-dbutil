@@ -32,7 +32,7 @@ import ch.inftec.ju.util.TestUtils;
 /**
  * Test case for the DataSetExportSuite.
  * 
- * @author Martin Meyer <martin.meyer@inftec.ch>
+ * @author martin.meyer@inftec.ch
  * 
  */
 public class DataSetExportSuiteTest {

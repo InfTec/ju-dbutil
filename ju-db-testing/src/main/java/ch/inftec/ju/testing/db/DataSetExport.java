@@ -55,7 +55,7 @@ public @interface DataSetExport {
 	
 	/**
 	 * Type of DataSet export.
-	 * @author Martin Meyer <martin.meyer@inftec.ch>
+	 * @author martin.meyer@inftec.ch
 	 *
 	 */
 	public enum ExportType {

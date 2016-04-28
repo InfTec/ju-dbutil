@@ -28,7 +28,7 @@ import ch.inftec.ju.util.XString;
 
 /**
  * Class containing utility functions that can be used to construct SQL queries.
- * @author Martin Meyer <martin.meyer@inftec.ch>
+ * @author martin.meyer@inftec.ch
  *
  */
 public class QueryUtils {

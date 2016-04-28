@@ -179,7 +179,7 @@ public class DbSchemaUtil {
 	/**
 	 * Helper class to run Liquibase ChangeLogs in a fluent API way.
 	 * 
-	 * @author Martin Meyer <martin.meyer@inftec.ch>
+	 * @author martin.meyer@inftec.ch
 	 * 
 	 */
 	public class LiquibaseChangeLogBuilder {

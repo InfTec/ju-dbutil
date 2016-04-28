@@ -6,7 +6,7 @@ package ch.inftec.ju.testing.db;
  * <p>
  * If not specified, the DB tests will create a new DbDataUtil instance for every cycle
  * which may result in repetitive queries to the DB
- * @author Martin Meyer <martin.meyer@inftec.ch>
+ * @author martin.meyer@inftec.ch
  *
  */
 public interface DbDataUtilProvider {

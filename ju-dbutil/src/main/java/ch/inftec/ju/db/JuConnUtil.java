@@ -181,7 +181,7 @@ public interface JuConnUtil {
 		/**
 		 * Schema info (consisting of name and (optional) catalog).
 		 * 
-		 * @author Martin Meyer <martin.meyer@inftec.ch>
+		 * @author martin.meyer@inftec.ch
 		 *
 		 */
 		public static interface SchemaInfo {

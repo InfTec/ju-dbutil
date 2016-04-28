@@ -32,7 +32,7 @@ import ch.inftec.ju.util.XString;
 /**
  * Suite class that can be used to execute tests with DataSetExport in the correct order.
  * 
- * @author Martin Meyer <martin.meyer@inftec.ch>
+ * @author martin.meyer@inftec.ch
  * 
  */
 public class DataSetExportSuite extends ParentRunner<Runner> {
