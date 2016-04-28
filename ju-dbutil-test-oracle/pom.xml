@@ -32,7 +32,7 @@
 		
 		<dependency>
 			<groupId>com.oracle</groupId>
-			<artifactId>my-ojdbc6</artifactId>
+			<artifactId>myOjdbc6</artifactId>
 			<version>${version.oracle}</version>
 			<scope>test</scope>
 		</dependency>
