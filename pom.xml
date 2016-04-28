@@ -22,6 +22,28 @@
 	live cycle as ju-dbutil. On the other hand, the two have some cohesion, so it's probably not too bad.
 	</description>
 
+	<scm>
+		<url>https://github.com/InfTec/ju-dbutil-parent</url>
+		<connection>scm:git:git@github.com:InfTec/ju-dbutil-parent.git</connection>
+	</scm>
+	
+	<developers>
+		<developer>
+			<id>mme</id>
+			<name>Martin Meyer</name>
+			<email>martin.meyer@inftec.ch</email>
+		</developer>
+	</developers>
+	
+	<!-- TODO: Might be removed once we have added this to the parent (and don't intend to change the parent unless it's already in central -->
+	<repositories>
+		<repository>
+			<id>inftec-nightly</id>
+			<name>Inftec Nightly Release Repository</name>
+			<url>https://mvn.inftec.ch/nexus/content/repositories/inftec-nightly</url>
+		</repository>
+	</repositories>
+
 	<modules>
 		<module>ju-dbutil</module>
 		<module>ju-db-testing</module>
