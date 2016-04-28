@@ -12,8 +12,17 @@
 	<description>Project to run DB tests on Oracle</description>
 
 	<properties>
-		<version.oracle>11.2.0.4</version.oracle>
+		<version.oracle>11.2.0.3.0</version.oracle>
 	</properties>
+	
+	<repositories>
+		<repository>
+			<id>inftec-esw</id>
+			<name>Inftec ESW Repository</name>
+			<url>https://mvn.inftec.ch/nexus/content/groups/esw</url>
+		</repository>
+	</repositories>
+	
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
