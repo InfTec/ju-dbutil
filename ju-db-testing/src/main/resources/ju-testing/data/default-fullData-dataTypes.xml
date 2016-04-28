@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Note: Dates seem to be of format year-day+1-month when using without time -->
+<dataset>
+  <!-- We'll set the TIMEFIELD here for non-Oracle DBs that support it.
+   -->
+  <DataTypes ID="-1" INTNUMBER="1" BIGINTNUMBER="2" VARCHARTEXT="one" CLOBTEXT="oneClob" DATEFIELD="1980-12-03" TIMEFIELD="10:11:12" TIMESTAMPFIELD="1980-12-03 10:11:12"/>
+</dataset>

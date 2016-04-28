@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- Makes project deployable on Central through sonatype -->
+	<parent>
+		<groupId>ch.inftec.ju</groupId>
+		<artifactId>ju-dbutil-parent</artifactId>
+		<version>6.0</version>
+	</parent>
+
+	<artifactId>ju-dbutil</artifactId>
+	<description>DB related utility functions</description>
+	
+	<properties>
+		<version.hibernate.jpa-2.0-api>1.0.1.Final</version.hibernate.jpa-2.0-api>
+		<version.hibernate>4.1.6.Final</version.hibernate>
+		<version.spring>4.2.5.RELEASE</version.spring>
+		<version.spring.spring-data-jpa>1.10.1.RELEASE</version.spring.spring-data-jpa>
+		<version.derby>10.12.1.1</version.derby>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>ju-util</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${version.spring}</version>
+			<optional>true</optional>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.0-api</artifactId>
+			<version>${version.hibernate.jpa-2.0-api}</version>
+			<scope>provided</scope> <!-- We'll expect the JPA API to be present on any project using dbutil -->
+		</dependency>
+		
+<!-- 		<dependency> -->
+<!-- 			<groupId>commons-dbutils</groupId> -->
+<!-- 			<artifactId>commons-dbutils</artifactId> -->
+<!-- 		</dependency> -->
+
+		<dependency>
+			<groupId>org.apache.derby</groupId>
+			<artifactId>derby</artifactId>
+			<version>${version.derby}</version>
+			<scope>test</scope>
+		</dependency>
+
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.oracle</groupId> -->
+<!-- 			<artifactId>my-ojdbc6</artifactId> -->
+<!-- 			<scope>test</scope> -->
+<!-- 		</dependency> -->
+		
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${version.hibernate}</version>
+			<optional>true</optional> <!-- Avoid duplicity in containers like JBoss -->
+		</dependency>
+		
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${version.hibernate}</version>
+			<optional>true</optional>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${version.spring}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${version.spring}</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>${version.spring.spring-data-jpa}</version>
+			<optional>true</optional>
+		</dependency>
+		
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework</groupId> -->
+<!-- 			<artifactId>spring-jdbc</artifactId> -->
+<!-- 			<optional>true</optional> -->
+<!-- 		</dependency> -->
+
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework.security</groupId> -->
+<!-- 			<artifactId>spring-security-core</artifactId> -->
+<!-- 			<optional>true</optional> -->
+<!-- 		</dependency> -->
+		
+		<dependency>
+			<groupId>org.codehaus.btm</groupId>
+			<artifactId>btm</artifactId>
+			<version>2.1.3</version> <!-- XXX Move to BOM -->
+			<optional>true</optional>
+		</dependency>
+	</dependencies>
+</project>

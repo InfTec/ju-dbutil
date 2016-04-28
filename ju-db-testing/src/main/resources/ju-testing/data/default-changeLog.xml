@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+ 
+ 	<changeSet id="player-1" author="mm">
+        <createTable tableName="Player">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="firstName" type="varchar(255)"/>
+            <column name="lastName" type="varchar(255)"/>
+            <column name="birthDate" type="date"/>
+        </createTable>
+    </changeSet>
+    
+    <changeSet id="team-1" author="mm">
+        <createTable tableName="Team">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)"/>
+            <column name="foundingDate" type="date"/>
+            <column name="ranking" type="int">
+            	<constraints nullable="false"/>
+            </column>
+            <column name="version" type="int">
+            	<constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    
+    <changeSet id="team_player-1" author="mm">
+        <createTable tableName="Team_Player">
+            <column name="teams_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>                
+            </column>
+            <column name="players_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    
+    <changeSet id="team_player-constr-team-1" author="mm">
+    	<addForeignKeyConstraint 
+    		constraintName="Team_Player_team"
+    		baseTableName="Team_Player"
+    		baseColumnNames="teams_id"
+    		referencedTableName="Team"
+    		referencedColumnNames="id"/>
+    </changeSet>
+    
+    <changeSet id="team_player-constr-player-1" author="mm">
+    	<addForeignKeyConstraint 
+    		constraintName="Team_Player_player"
+    		baseTableName="Team_Player"
+    		baseColumnNames="players_id"
+    		referencedTableName="Player"
+    		referencedColumnNames="id"/>
+    </changeSet>
+    
+    <changeSet id="testingEntity-1" author="mm">
+        <createTable tableName="TestingEntity">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="testingEntity-2" author="mm">
+    	<modifyDataType tableName="TestingEntity" columnName="name" newDataType="varchar(512)"/> <!-- As we use it in some tests to save paths that might be longer than 50 characters -->
+    </changeSet>
+    
+    <changeSet id="dataTypes-1" author="mm">
+        <createTable tableName="DataTypes">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="intNumber" type="int"/>
+            <column name="bigIntNumber" type="bigint"/>
+            <column name="varcharText" type="varchar(255)"/>
+            <column name="clobText" type="clob"/>
+            <column name="dateField" type="date"/>
+            <column name="timeField" type="time"/>
+            <column name="timeStampField" type="timestamp"/>
+        </createTable>
+    </changeSet>
+ 
+</databaseChangeLog>

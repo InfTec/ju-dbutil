@@ -12,127 +12,57 @@
 	</parent>
 
 	<groupId>ch.inftec.ju</groupId>
-	<artifactId>ju-dbutil</artifactId>
+	<artifactId>ju-dbutil-parent</artifactId>
 	<version>6.0</version>
-	<description>DB related utility functions</description>
+	<packaging>pom</packaging>
+	
+	<description>
+	Aggregator project that helps us combine ju-dbutil and the DB specific testing modules. 
+	To avoid circular dependency cycles, we'll also include ju-db-testing here even though it might theoretically have another
+	live cycle as ju-dbutil. On the other hand, the two have some cohesion, so it's probably not too bad.
+	</description>
 
+	<modules>
+		<module>ju-dbutil</module>
+		<module>ju-db-testing</module>
+	</modules>	
+	
 	<properties>
 		<version.ju-util>6.0-tbd</version.ju-util>
 		<version.junit>4.12</version.junit>
-		<version.hibernate.jpa-2.0-api>1.0.1.Final</version.hibernate.jpa-2.0-api>
-		<version.hibernate>4.1.6.Final</version.hibernate>
-		<version.spring>4.2.5.RELEASE</version.spring>
-		<version.spring.spring-data-jpa>1.10.1.RELEASE</version.spring.spring-data-jpa>
-		<version.derby>10.12.1.1</version.derby>
 	</properties>
-
-	<dependencies>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>ju-util</artifactId>
-			<version>${version.ju-util}</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${version.junit}</version>
-			<scope>test</scope>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jdbc</artifactId>
-			<version>${version.spring}</version>
-			<optional>true</optional>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.hibernate.javax.persistence</groupId>
-			<artifactId>hibernate-jpa-2.0-api</artifactId>
-			<version>${version.hibernate.jpa-2.0-api}</version>
-			<scope>provided</scope> <!-- We'll expect the JPA API to be present on any project using dbutil -->
-		</dependency>
-		
-<!-- 		<dependency> -->
-<!-- 			<groupId>commons-dbutils</groupId> -->
-<!-- 			<artifactId>commons-dbutils</artifactId> -->
-<!-- 		</dependency> -->
-
-		<dependency>
-			<groupId>org.apache.derby</groupId>
-			<artifactId>derby</artifactId>
-			<version>${version.derby}</version>
-			<scope>test</scope>
-		</dependency>
-
-<!-- 		<dependency> -->
-<!-- 			<groupId>com.oracle</groupId> -->
-<!-- 			<artifactId>my-ojdbc6</artifactId> -->
-<!-- 			<scope>test</scope> -->
-<!-- 		</dependency> -->
-		
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>${version.hibernate}</version>
-			<optional>true</optional> <!-- Avoid duplicity in containers like JBoss -->
-		</dependency>
-		
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-			<version>${version.hibernate}</version>
-			<optional>true</optional>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<version>${version.spring}</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<version>${version.spring}</version>
-			<scope>test</scope>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-jpa</artifactId>
-			<version>${version.spring.spring-data-jpa}</version>
-			<optional>true</optional>
-		</dependency>
-		
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.springframework</groupId> -->
-<!-- 			<artifactId>spring-jdbc</artifactId> -->
-<!-- 			<optional>true</optional> -->
-<!-- 		</dependency> -->
-
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.springframework.security</groupId> -->
-<!-- 			<artifactId>spring-security-core</artifactId> -->
-<!-- 			<optional>true</optional> -->
-<!-- 		</dependency> -->
-		
-		<dependency>
-			<groupId>org.codehaus.btm</groupId>
-			<artifactId>btm</artifactId>
-			<version>2.1.3</version> <!-- XXX Move to BOM -->
-			<optional>true</optional>
-		</dependency>
-	</dependencies>
+	
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>ju-util</artifactId>
+				<version>${version.ju-util}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${version.junit}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	
 	<profiles>
+		<!-- Overwrites the specific ju-util version (set by versionoverride on deployment) to allow for workspace resolution in Eclipse -->
 		<profile>
 			<id>ju-workspaceResolution-ju</id>
 			<properties>
 				<version.ju-util>6.0</version.ju-util>
 			</properties>
+		</profile>
+		
+		<!-- Performs full DB specific tests -->
+		<profile>
+			<id>ju-dbTests</id>
+			<modules>
+				<module>ju-dbutil-test</module>
+			</modules>
 		</profile>
 	</profiles>
 </project>

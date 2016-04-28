@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <TestingEntity ID="1" NAME="DbDataUtilTest1"/>
+  <TestingEntity ID="2" NAME="DbDataUtilTest2"/>
+  <TestingEntity ID="3" NAME="DbDataUtilTest3"/>
+</dataset>

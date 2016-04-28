@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Note: Dates seem to be of format year-day+1-month when using without time -->
+<dataset>
+  <Player ID="-1" BIRTHDATE="1980-04-12" FIRSTNAME="All" LASTNAME="Star"/>
+  <Player ID="-2" BIRTHDATE="2000-02-01" FIRSTNAME="Player1" LASTNAME="Team1"/>
+  <Player ID="-3" BIRTHDATE="2000-03-01" FIRSTNAME="Player2" LASTNAME="Team1"/>
+  <Player ID="-4" BIRTHDATE="2000-02-02" FIRSTNAME="Player1" LASTNAME="Team2"/>
+  <Player ID="-5" BIRTHDATE="2000-03-02" FIRSTNAME="Player2" LASTNAME="Team2"/>
+  
+  <Team ID="-1" FOUNDINGDATE="2000-02-01" NAME="Team1" RANKING="1" VERSION="1"/>
+  <Team ID="-2" FOUNDINGDATE="2000-03-02" NAME="Team2" RANKING="2" VERSION="1"/>
+  
+  <Team_Player TEAMS_ID="-1" PLAYERS_ID="-1"/>
+  <Team_Player TEAMS_ID="-1" PLAYERS_ID="-2"/>
+  <Team_Player TEAMS_ID="-1" PLAYERS_ID="-3"/>
+  <Team_Player TEAMS_ID="-2" PLAYERS_ID="-1"/>
+  <Team_Player TEAMS_ID="-2" PLAYERS_ID="-4"/>
+  <Team_Player TEAMS_ID="-2" PLAYERS_ID="-5"/>
+
+  <TestingEntity ID="-1" NAME="Test1"/>
+  
+  <!-- DataTypes is loaded separately for non-oracle DBs as Oracle doesn't support the TIME type -->
+  <DataTypes ID="-1" INTNUMBER="1" BIGINTNUMBER="2" VARCHARTEXT="one" CLOBTEXT="oneClob" DATEFIELD="1980-12-03" TIMESTAMPFIELD="1980-12-03 10:11:12"/>
+  <DataTypes ID="-2"/> <!-- Test for null values -->
+</dataset>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+ 
+ 	<changeSet id="as-parent-1" author="mm">
+        <createTable tableName="AS_Parent">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    
+    <changeSet id="as-child-1" author="mm">
+        <createTable tableName="AS_Child">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="parentId_fk" type="bigint"/>
+        </createTable>
+    </changeSet>
+    
+    <!-- Add a foreign key with onDelete=NO ACTION to test data set ordering -->
+    <changeSet id="as-child-parent-1" author="mm">
+    	<addForeignKeyConstraint 
+    		constraintName="Child_Parent_family"
+    		baseTableName="AS_Child"
+    		baseColumnNames="parentId_fk"
+    		referencedTableName="AS_Parent"
+    		referencedColumnNames="id"
+    		onDelete="NO ACTION"/>
+    </changeSet>
+</databaseChangeLog>

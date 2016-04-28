@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Same as singleDataTypes.xml, but without timefield which is not supported directly by Oracle-->
+<dataset>
+  <DataTypes ID="1" intnumber="1" bigintnumber="2" varchartext="one" clobtext="oneClob" datefield="1980-12-03" timestampfield="1980-12-03"/>
+</dataset>

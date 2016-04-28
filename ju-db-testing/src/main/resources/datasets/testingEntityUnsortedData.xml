@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Note: Dates seem to be of format year-day+1-month when using without time -->
+<dataset>
+  <TESTINGENTITY ID="3" NAME="Test3"/>
+  <TESTINGENTITY ID="1" NAME="Test1"/>
+  <TESTINGENTITY ID="2" NAME="Test2"/>
+</dataset>

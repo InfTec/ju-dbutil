@@ -1,0 +1,17 @@
+# Contains references and priorization of JU property files.
+# We will scan the whole classpath for files named ju.properties.files to load property files
+# See JuUtils.getJuPropertyChain for details.
+#
+# The entries in this file have the form '{priority},{type},{path}', e.g.
+#   1,prop,/my.properties
+#
+# Valid types are:
+#  - sys: System properties
+#  - prop: Properties file
+#
+# Lines starting with # and empty lines will be ignored
+# Priorities must be unique
+# Resources must be unique as well
+
+97,prop,unknown-file,optional
+98,prop,ju_testing.properties
