@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<!-- ########################## -->
+	<!-- Define global    settings   -->
+	<!-- ########################## -->
+	<tx:annotation-driven/>
+
+	<!-- ########################## -->
+	<!-- Define security settings   -->
+	<!-- ########################## -->
+	
+	<security:authentication-manager>
+		<security:authentication-provider user-service-ref="juUserDetailsService"/>
+	</security:authentication-manager>
+	
+	<!-- Set the security strategy to MODE_GLOBAL -->
+	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean"
+		p:targetClass="org.springframework.security.core.context.SecurityContextHolder"
+		p:targetMethod="setStrategyName" p:arguments="MODE_GLOBAL" />
+	
+	<!-- Custom Authentication Provider -->
+	<bean id="juUserDetailsService" class="ch.inftec.ju.db.auth.JuUserDetailsService"/>
+	<bean id="authenticationEditorModel" class="ch.inftec.ju.db.auth.AuthenticationEditorModel"/>
+	
+	<!-- Define a test implementation for UnknownUserHandler -->
+	<bean id="myUnknownUserHandler" class="ch.inftec.ju.db.auth.MyUnknownUserHandler"/>
+	
+	<!-- Load repositories -->
+	<jpa:repositories base-package="ch.inftec.ju.db.auth.repo" />
+	
+	<!-- ########################## -->
+	<!-- Define DB connection infos -->
+	<!-- ########################## -->
+	
+	<!--Persistence -->
+	<bean id="juConnectionInfo" class="ch.inftec.ju.db.ConnectionInfoImpl">
+		<property name="name" value="Derby Test DB Auth"/>
+		<property name="connectionString" value="jdbc:derby:memory:juTestingDbAuth;create=true"/>
+		<property name="userName" value="sa"/>
+		<property name="password" value=""/>
+	</bean>
+	
+	<!-- Define DataSource -->
+	
+	<bean id="dataSource" class="ch.inftec.ju.db.ConnectionInfoDriverManagerDataSource">
+		<property name="connectionInfo" ref="juConnectionInfo"/>
+	</bean>
+	
+	<!-- Define and configure the EntityManagerFactory -->
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="persistenceXmlLocation" value="classpath:ch/inftec/ju/db/auth/authPersistence.xml"/>
+		<property name="persistenceUnitName" value="juAuth"/>
+		
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+		</property>
+	</bean>
+
+	<!-- Define the TransactionManager -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"/>
+	<alias name="transactionManager" alias="transactionManagerJuAuth"/>
+		
+	<!-- ################################## -->
+	<!-- Define Ju specific helpers objects -->
+	<!-- ################################## -->
+	
+	<!-- Define Spring specific helper objects -->
+	<bean id="testDb" class="ch.inftec.ju.testing.db.data.DefaultDerbyTestDb"/>
+	<bean id="juDbUtils" class="ch.inftec.ju.db.JuDbUtils">
+		<property name="entityManagerFactory" ref="entityManagerFactory"/>
+	</bean>
+	
+	<!-- ###################################### -->
+	<!-- Define Spring specific helpers objects -->
+	<!-- ###################################### -->
+	
+	<!-- Define JdbcTemplate -->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<!-- Define Repositories -->
+	<jpa:repositories base-package="ch.inftec.ju.testing.db.data.repo" />
+</beans>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:repository="http://www.springframework.org/schema/data/repository"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+	http://www.springframework.org/schema/data/repository http://www.springframework.org/schema/data/repository/spring-repository.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">	
+
+	<!--
+	<jpa:repositories base-package="ch.inftec.ju.test.spring.data.repos" />
+ 
+	<bean id="dataConfiguration" class="ch.inftec.ju.test.spring.data.SpringDataConfiguration" />
+	<bean id="persistenceExceptionTranslator"
+		class="ch.inftec.ju.test.spring.data.DefaultPersistenceExceptionTranslator" />
+	 -->
+
+	<!-- Enable annotation based configuration (including transactions) -->
+ 	<context:annotation-config />
+ 	<tx:annotation-driven/>
+
+	<!-- Define persistence.xml, URL and PersistenceUnitName and so on... -->
+	
+	<!-- DB1 (TeamPlayer DB) -->
+	<bean id="connectionInfoTeamPlayer1" class="ch.inftec.ju.db.ConnectionInfoImpl">
+		<property name="name" value="TeamPlayer DB1"/>
+		<property name="connectionString" value="jdbc:derby:memory:multiplePuTestTeamPlayer1;create=true"/>
+		<property name="userName" value="sa"/>
+		<property name="password" value=""/>
+	</bean>
+	<bean id="connectionInfoTeamPlayer2" class="ch.inftec.ju.db.ConnectionInfoImpl">
+		<property name="name" value="TeamPlayer DB2"/>
+		<property name="connectionString" value="jdbc:derby:memory:multiplePuTestTeamPlayer2;create=true"/>
+		<property name="userName" value="sa"/>
+		<property name="password" value=""/>
+	</bean>
+
+	<!-- Define DataSources -->
+	<bean id="dataSourceTeamPlayer1" class="ch.inftec.ju.db.ConnectionInfoDriverManagerDataSource">
+		<property name="connectionInfo" ref="connectionInfoTeamPlayer1"/>
+<!-- 		<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" /> -->
+	</bean>
+	<bean id="dataSourceTeamPlayer2" class="ch.inftec.ju.db.ConnectionInfoDriverManagerDataSource">
+		<property name="connectionInfo" ref="connectionInfoTeamPlayer2"/>
+<!-- 		<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" /> -->
+	</bean>
+	
+	<!-- Define and configure the RoutingDataSource -->
+	<bean id="routingDataSourceTeamPlayer" class="ch.inftec.ju.db.ConnectionInfoRoutingDataSource">
+		<property name="targetConnectionInfoDataSources">
+			<list>
+				<ref bean="dataSourceTeamPlayer1"/>
+				<ref bean="dataSourceTeamPlayer2"/>
+			</list>
+		</property>
+		<property name="defaultTargetDataSource" ref="dataSourceTeamPlayer1" />
+		<property name="lenientFallback" value="false"/> <!-- Only use default data source if non is specified (null) -->
+	</bean>
+	<bean id="connectionInfoContextHolder" class="ch.inftec.ju.db.ConnectionInfoContextHolder"/>
+
+	<!-- Define and configure the EntityManagerFactory -->
+	<bean id="entityManagerFactoryTeamPlayer"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="routingDataSourceTeamPlayer"/>
+		<property name="persistenceXmlLocation" value="classpath:ch/inftec/ju/db/MultiplePersistenceUnitsTest-persistence.xml"/>
+		<property name="persistenceUnitName" value="TeamPlayer PU"/>
+		
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+		</property>
+	</bean>
+
+	<!-- Define the TransactionManager -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactoryTeamPlayer"/>
+	</bean>
+	
+	<!-- Define JdbcTemplate -->
+	<bean id="jdbcTemplateTeamPlayer"
+		class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="routingDataSourceTeamPlayer"/>	
+	</bean>
+
+	<!-- Define Repositories -->
+	<jpa:repositories 
+			base-package="ch.inftec.ju.testing.db.data.repo"
+			entity-manager-factory-ref="entityManagerFactoryTeamPlayer">
+		<repository:exclude-filter type="assignable" expression="ch.inftec.ju.testing.db.data.repo.TestingEntityRepo"/>
+	</jpa:repositories>
+	
+	<!-- DB2 (TestingEntity DB) -->
+	<bean id="connectionInfoTestingEntity" class="ch.inftec.ju.db.ConnectionInfoImpl">
+		<property name="name" value="TestingEntity DB"/>
+		<property name="connectionString" value="jdbc:derby:memory:multiplePuTestTestingEntity;create=true"/>
+		<property name="userName" value="sa"/>
+		<property name="password" value=""/>
+	</bean>
+		
+	<bean id="dataSourceTestingEntity" 
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource" primary="true">
+		
+		<property name="url" value="#{connectionInfoTestingEntity.connectionString}" />
+		<property name="username" value="#{connectionInfoTestingEntity.userName}" />
+		<property name="password" value="#{connectionInfoTestingEntity.password}" />
+<!-- 		<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" /> -->
+	</bean>
+
+	<bean id="entityManagerFactoryTestingEntity"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSourceTestingEntity"/>
+		<property name="persistenceXmlLocation" value="classpath:ch/inftec/ju/db/MultiplePersistenceUnitsTest-persistence.xml"/>
+		<property name="persistenceUnitName" value="TestingEntity PU"/>
+		
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+		</property>
+	</bean>
+
+<!-- 	<bean id="transactionManagerTestingEntity" -->
+<!-- 		class="org.springframework.orm.jpa.JpaTransactionManager"> -->
+<!-- 		<property name="entityManagerFactory" ref="entityManagerFactoryTestingEntity"/> -->
+<!-- 	</bean> -->
+	
+<!-- 	<bean id="jdbcTemplateTestingEntity" -->
+<!-- 		class="org.springframework.jdbc.core.JdbcTemplate"> -->
+<!-- 		<property name="dataSource" ref="dataSourceTestingEntity"/>	 -->
+<!-- 	</bean> -->
+
+	<jpa:repositories 
+			base-package="ch.inftec.ju.testing.db.data.repo"
+			entity-manager-factory-ref="entityManagerFactoryTestingEntity">
+		<repository:exclude-filter type="assignable" expression="ch.inftec.ju.testing.db.data.repo.PlayerRepo"/>
+		<repository:exclude-filter type="assignable" expression="ch.inftec.ju.testing.db.data.repo.TeamRepo"/>
+	</jpa:repositories>
+
+	<!-- JuDbUtils Bean -->
+	<bean id="contextConnectionInfo" class="ch.inftec.ju.db.ContextConnectionInfo" primary="true"/>
+	<bean id="juDbUtils" class="ch.inftec.ju.db.JuDbUtils">
+		<property name="entityManagerFactory" ref="entityManagerFactoryTeamPlayer"/>
+	</bean>
+	
+	<!-- Define test beans -->
+	<bean id="entityManagerTest" class="ch.inftec.ju.db.MultiplePersistenceUnitsTest.EntityManagerTest"/>
+	<bean id="jdbcTemplateTest" class="ch.inftec.ju.db.MultiplePersistenceUnitsTest.JdbcTemplateTest"/>
+	<bean id="entityManagerTestingEntityTest" class="ch.inftec.ju.db.MultiplePersistenceUnitsTest.EntityManagerTestingEntityTest"/>
+	<bean id="inheritingEntityManagerTest" class="ch.inftec.ju.db.MultiplePersistenceUnitsTest.InheritingEntityManagerTest"/>
+</beans>

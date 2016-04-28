@@ -1,0 +1,55 @@
+Object: 0
+  Attribute: .connectionName=Derby InMemory-DB
+  Object: 1
+    Attribute: groupName=G1
+    Attribute: groupDescription=Updates 1
+    Object: 2
+      Attribute: @type=Update
+      Attribute: .connectionName=Derby InMemory-DB
+      Attribute: .table=TEST_A
+      Attribute: .id=L:1
+      Attribute: TEXT.orig=A1
+      Attribute: TEXT.new=A1New
+    Object: 3
+      Attribute: @type=Update
+      Attribute: .connectionName=Derby InMemory-DB
+      Attribute: .table=TEST_A
+      Attribute: .id=L:2
+      Attribute: TEXT.orig=A2
+      Attribute: TEXT.new=A2New
+  Object: 4
+    Attribute: groupName=G2
+    Attribute: groupDescription=Updates 2
+    Object: 5
+      Attribute: @type=Update
+      Attribute: .connectionName=Derby InMemory-DB
+      Attribute: .table=TEST_A
+      Attribute: .id=L:3
+      Attribute: B_FK.orig=L:3
+      Attribute: B_FK.new=L:1
+  Object: 6
+    Attribute: groupName=G3
+    Attribute: groupDescription=Inserts
+    Object: 7
+      Attribute: @type=Insert
+      Attribute: .connectionName=Derby InMemory-DB
+      Attribute: .table=TEST_A
+      Attribute: .id=L:100
+      Attribute: AID.orig=
+      Attribute: AID.new=L:100
+      Attribute: TEXT.orig=
+      Attribute: TEXT.new=A100
+  Object: 8
+    Attribute: groupName=G4
+    Attribute: groupDescription=Deletes
+    Object: 9
+      Attribute: @type=Delete
+      Attribute: .connectionName=Derby InMemory-DB
+      Attribute: .table=TEST_A
+      Attribute: .id=L:1
+      Attribute: AID.orig=L:1
+      Attribute: AID.new=
+      Attribute: TEXT.orig=A1
+      Attribute: TEXT.new=
+      Attribute: B_FK.orig=L:1
+      Attribute: B_FK.new=

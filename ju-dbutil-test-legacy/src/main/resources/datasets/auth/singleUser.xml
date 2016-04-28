@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Note: Dates seem to be of format year-day+1-month when using without time -->
+<dataset>
+  <AUTHUSER ID="-1" NAME="user1" PASSWORD="pwd1"/>
+  <AUTHROLE ID="-1" NAME="role1"/>
+  <AUTHUSER_AUTHROLE users_id="-1" roles_id="-1"/>
+</dataset>

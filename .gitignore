@@ -4,3 +4,5 @@ derby.log
 .settings
 .project
 .classpath
+*.tlog
+rebel.xml

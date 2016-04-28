@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:repository="http://www.springframework.org/schema/data/repository"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+	http://www.springframework.org/schema/data/repository http://www.springframework.org/schema/data/repository/spring-repository.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">	
+
+	<bean id="jtaDb1ConnectionInfo" class="ch.inftec.ju.db.ConnectionInfoImpl">
+		<property name="name" value="JTA DB1"/>
+		<property name="connectionString" value="jdbc:oracle:thin:@vcentos.lan:1521:xe"/>
+		<property name="userName" value="ju_test"/>
+		<property name="password" value="pwju"/>
+<!-- 		<property name="schema" value="SDBADMIN"/> -->
+<!-- 		<property name="iconUrl" value="classpath:/com/swisscom/mytts/gui/icons/dbProduction.gif"/> -->
+<!-- 		<property name="imageUrl" value="classpath:/com/swisscom/mytts/gui/icons/dbProduction_big.gif"/> -->
+	</bean>
+	<bean id="jtaDb2ConnectionInfo" class="ch.inftec.ju.db.ConnectionInfoImpl">
+		<property name="name" value="JTA DB2"/>
+		
+		<!-- We'll use the same DB as DB2... -->
+		<property name="connectionString" value="jdbc:oracle:thin:@vcentos.lan:1521:xe"/>
+		<property name="userName" value="ju_test"/>
+		<property name="password" value="pwju"/>
+<!-- 		<property name="schema" value="SDBADMIN"/> -->
+<!-- 		<property name="iconUrl" value="classpath:/com/swisscom/mytts/gui/icons/dbProduction.gif"/> -->
+<!-- 		<property name="imageUrl" value="classpath:/com/swisscom/mytts/gui/icons/dbProduction_big.gif"/> -->
+	</bean>
+</beans>

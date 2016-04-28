@@ -1,0 +1,86 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>ch.inftec.ju</groupId>
+		<artifactId>ju-dbutil-parent</artifactId>
+		<version>6.0</version>
+	</parent>
+
+	<artifactId>ju-dbutil-test-oracle</artifactId>
+	<description>Project to run DB tests on Oracle</description>
+
+	<properties>
+		<version.oracle>11.2.0.4</version.oracle>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>ju-dbutil-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>my-ojdbc6</artifactId>
+			<version>${version.oracle}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	
+	<build>
+	    <plugins>
+	        <plugin>
+	            <artifactId>maven-surefire-plugin</artifactId>
+	            <configuration>
+	                <dependenciesToScan>
+	                	<dependency>ch.inftec.ju:ju-dbutil-test</dependency>
+	                </dependenciesToScan>
+	            </configuration>
+	        </plugin>
+	    </plugins>
+	</build>
+	
+	<profiles>
+		<profile>
+			<id>juProf-no-remote-db-tests</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<!-- <version>2.15</version> -->
+						<configuration>
+							<skipTests>true</skipTests>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>juProf-perform-db-tests-oracle</id>
+			<activation>
+				<property>
+					<name>juDbTestsOracle</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<!-- <version>2.15</version> -->
+						<configuration>
+							<skipTests>false</skipTests>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>

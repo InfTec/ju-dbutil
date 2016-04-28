@@ -1,0 +1,45 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>ch.inftec.ju</groupId>
+		<artifactId>ju-dbutil-parent</artifactId>
+		<version>6.0</version>
+	</parent>
+
+	<artifactId>ju-dbutil-test-hsql</artifactId>
+	<description>Project to run DB tests on HSQL</description>
+
+	<properties>
+		<version.hsqldb>2.3.2</version.hsqldb>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>ju-dbutil-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<version>${version.hsqldb}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	
+	<build>
+	    <plugins>
+	        <plugin>
+	            <artifactId>maven-surefire-plugin</artifactId>
+	            <configuration>
+	                <dependenciesToScan>
+	                	<dependency>ch.inftec.ju:ju-dbutil-test</dependency>
+	                </dependenciesToScan>
+	            </configuration>
+	        </plugin>
+	    </plugins>
+	</build>
+</project>
