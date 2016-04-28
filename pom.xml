@@ -50,7 +50,7 @@
 	</modules>	
 	
 	<properties>
-		<version.ju-util>6.0-tbd</version.ju-util>
+		<version.ju-util>6.0-2</version.ju-util>
 		<version.junit>4.12</version.junit>
 		<version.hibernate>4.1.6.Final</version.hibernate>
 		<version.hibernate.jpa-2.0-api>1.0.1.Final</version.hibernate.jpa-2.0-api>
