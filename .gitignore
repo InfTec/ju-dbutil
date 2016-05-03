@@ -6,3 +6,4 @@ derby.log
 .classpath
 *.tlog
 rebel.xml
+ju_user.properties
