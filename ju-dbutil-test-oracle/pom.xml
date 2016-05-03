@@ -12,7 +12,7 @@
 	<description>Project to run DB tests on Oracle</description>
 
 	<properties>
-		<version.oracle>11.2.0.4</version.oracle>
+		<version.oracle>12.1.0.2</version.oracle>
 	</properties>
 	
 	<repositories>
@@ -32,7 +32,7 @@
 		
 		<dependency>
 			<groupId>com.oracle</groupId>
-			<artifactId>myOjdbc6</artifactId>
+			<artifactId>myOjdbc7</artifactId>
 			<version>${version.oracle}</version>
 			<scope>test</scope>
 		</dependency>
