@@ -1,5 +1,6 @@
 package ch.inftec.ju.db;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.util.List;
 
@@ -43,8 +44,8 @@ public class DbSpecificHandlerOracle extends DbSpecificHandlerDefault {
 	
 	@Override
 	public Long getNextValueFromSequence(String sequenceName) {
-		// We'll probably get a BigDecimal
-		return ConversionUtils.toLong(this.queryForObject(String.format("select %s.nextVal from dual", sequenceName), Object.class));
+		// We'll probably get a BigDecimal. With driver 11, we could query for an Object, with version 12, that doesn't work anymore...
+		return ConversionUtils.toLong(this.queryForObject(String.format("select %s.nextVal from dual", sequenceName), BigDecimal.class));
 	}
 
 	@Override
