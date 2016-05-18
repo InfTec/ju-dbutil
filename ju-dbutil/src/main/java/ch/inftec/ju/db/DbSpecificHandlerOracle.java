@@ -28,12 +28,16 @@ public class DbSpecificHandlerOracle extends DbSpecificHandlerDefault {
 	
 	@Override
 	public void resetIdentityGenerationOrSequences(final int val) {
+		// NB: getSequenceName will also execute DbWork and in JBoss, we must not
+		// nest it, otherwise we get an error.
+		final List<String> sequenceNames = getSequenceNames();
+
 		this.connUtil.doWork(new DbWork() {
 			@Override
 			public void execute(Connection conn) {
 				JdbcTemplate jt = JuConnUtils.asJdbcTemplate(conn);
 				
-				for (String sequence : getSequenceNames()) {
+				for (String sequence : sequenceNames) {
 				// We'll just drop and recreate the sequence.
 					jt.execute("drop sequence " + sequence);
 					jt.execute(String.format("create sequence %s start with %d", sequence, val));
