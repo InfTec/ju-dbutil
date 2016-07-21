@@ -338,7 +338,7 @@ public class DbTestAnnotationHandler implements Serializable {
 		}
 		
 		URL url = null;
-		if (!JuUtils.getJuPropertyChain().get("ju-testing.export.compareToResource", Boolean.class)
+		if (!Boolean.TRUE.equals(JuUtils.getJuPropertyChain().get("ju-testing.export.compareToResource", Boolean.class))
 				&& this.dataSetConfigInfo.isLoadImportResourcesFromFileSystem() && !StringUtils.isEmpty(resourceDir)) {
 			// Lookup resource in file system
 			Path p = Paths.get(this.getLocalRoot(), resourceDir, actualResource);
