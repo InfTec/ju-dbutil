@@ -316,12 +316,13 @@ public class JuConnUtils {
 		@Override
 		public List<String> getPrimaryKeyColumns(String tableName) {
 			final String actualTableName = this.connUtil.getDbType().getDbSpecificHandler(this.connUtil).convertTableNameCasing(tableName);
+			final SchemaInfo schemaInfo = getSchemaInfo();
 			
 			List<String> columnNames = this.connUtil.extractDatabaseMetaData(new DatabaseMetaDataCallback<List<String>>() {
 				@Override
 				public List<String> processMetaData(DatabaseMetaData dbmd) throws SQLException {
 					
-					ResultSet rs = dbmd.getPrimaryKeys(null, null, actualTableName);
+					ResultSet rs = dbmd.getPrimaryKeys(schemaInfo.getCatalog(), schemaInfo.getName(), actualTableName);
 					
 					List<String> columnNames = new ArrayList<>();
 					while (rs.next()) {
