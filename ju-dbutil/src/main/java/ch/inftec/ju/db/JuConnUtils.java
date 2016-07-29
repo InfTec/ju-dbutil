@@ -316,13 +316,23 @@ public class JuConnUtils {
 		@Override
 		public List<String> getPrimaryKeyColumns(String tableName) {
 			final String actualTableName = this.connUtil.getDbType().getDbSpecificHandler(this.connUtil).convertTableNameCasing(tableName);
-			final SchemaInfo schemaInfo = getSchemaInfo();
 			
+			// ESWM-119: On Oracle, we have problems with primary key lookup as it would produce redundant and in the worst case
+			// wrong results if the schema name is not provided to the query:
+			SchemaInfo schemaInfo = null;
+			try {
+				schemaInfo = getSchemaInfo();
+			} catch (UnsupportedOperationException ex) {
+				// Use null-values for now...
+				schemaInfo = new SchemaInfoImpl(null, null);
+			}
+			final SchemaInfo theSchemaInfo = schemaInfo;
+
 			List<String> columnNames = this.connUtil.extractDatabaseMetaData(new DatabaseMetaDataCallback<List<String>>() {
 				@Override
 				public List<String> processMetaData(DatabaseMetaData dbmd) throws SQLException {
 					
-					ResultSet rs = dbmd.getPrimaryKeys(schemaInfo.getCatalog(), schemaInfo.getName(), actualTableName);
+					ResultSet rs = dbmd.getPrimaryKeys(theSchemaInfo.getCatalog(), theSchemaInfo.getName(), actualTableName);
 					
 					List<String> columnNames = new ArrayList<>();
 					while (rs.next()) {
