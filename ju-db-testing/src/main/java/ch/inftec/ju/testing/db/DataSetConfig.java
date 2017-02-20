@@ -44,7 +44,7 @@ public @interface DataSetConfig {
 	 * This prefix will also be added to the resourceDir when performing physical exports.
 	 * <p>
 	 * Note that the prefix will <strong>NOT</strong> be automatically added to the name of the DataSet import, so we still need to supply
-	 * it there, e.g. <code>dataSetExport/myExport.xml<code>
+	 * it there, e.g. <code>dataSetExport/myExport.xml</code>
 	 * 
 	 * @return resource prefix
 	 */

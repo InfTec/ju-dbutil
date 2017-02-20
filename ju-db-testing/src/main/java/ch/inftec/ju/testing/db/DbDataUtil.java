@@ -111,9 +111,9 @@ public class DbDataUtil {
 	/**
 	 * Creates a new DbDataUtil instance using the specified Connection and the Schema
 	 * from the ConnectionInfo
-	 * @param connection Connection instance
-	 * @param ConnectionInfo to get the Schema to use
-	 * @Deprecated Use constructor with EntityManager
+	 * @param connUtil Connection instance
+	 * @param connectionInfo to get the Schema to use
+	 * @deprecated Use constructor with EntityManager
 	 */
 	public DbDataUtil(JuConnUtil connUtil, ConnectionInfo connectionInfo) {
 		this(connUtil, connectionInfo.getSchema());

@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
  * <p>
  * By default, the data set is exported to <code>src/main/resources/dataSetExport</code> to a name
  * like <code>TestClassName_testMethodName.xml</code>. Any leading non-alphabetically characters
- * will be stripped, e.g. _01_test -> test
+ * will be stripped, e.g. _01_test -&gt; test
  * <p>
  * The target location can be modified using the <code>targetDir</code> attribute.
  * <p>

@@ -44,7 +44,6 @@ public class DbSchemaBuilder {
 	/**
 	 * User to create. Only available for databases that distinguish between user and schema.
 	 * @param userName
-	 * @param password
 	 * @return
 	 */
 	public DbSchemaBuilder user(String userName) {
@@ -59,7 +58,7 @@ public class DbSchemaBuilder {
 	 * <p>
 	 * See http://docs.codehaus.org/display/BTM/FAQ#FAQ-WhyisOraclethrowingaXAExceptionduringinitializationofmydatasource? for details.
 	 * 
-	 * @param grantJtaRecovery
+	 * @param jtaRecoveryGrants
 	 * @return
 	 */
 	public DbSchemaBuilder jtaRecoveryGrants(boolean jtaRecoveryGrants) {

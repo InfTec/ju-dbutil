@@ -184,7 +184,7 @@ public class JuDbUtils {
 	 * Helper function that returns all managed types (i.e. entities) of the specified EntityManager
 	 * as a list of Java Class objects.
 	 * @param em
-	 * @return List of Class<?> objects of the DB entity classes (annotated with @Entity)
+	 * @return List of Class&lt;?&gt; objects of the DB entity classes (annotated with @Entity)
 	 */
 	public static List<Class<?>> getManagedTypesAsClass(EntityManager em) {
 		List<Class<?>> classes = new ArrayList<>();

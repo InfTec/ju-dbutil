@@ -10,7 +10,7 @@ import java.sql.Connection;
 public interface DbWork {
 	/**
 	 * Callback function providing a Connection.
-	 * @param ds Connection instance
+	 * @param conn Connection instance
 	 */
 	void execute(Connection conn);
 }

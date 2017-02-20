@@ -64,8 +64,7 @@ public class DbSchemaUtil {
 	 * the update or cleaning of the Schema.
 	 * <p>
 	 * JuEmUtil must be within a valid transaction - no explicit transaction handling will be done.
-	 * @param emUtil
-	 * @param connUtil
+	 * @param em
 	 */
 //	public DbSchemaUtil(JuEmUtil emUtil, JuConnUtil2 connUtil) {
 //		this(emUtil, TxHandler.getDummyHandler(), connUtil);

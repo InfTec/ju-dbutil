@@ -85,7 +85,7 @@ public class QueryUtils {
 		/**
 		 * The default prefix to be used for attributes. This will be prefixed to all attributes when not null.
 		 * <p>
-		 * Example: defaultPrefix: p, Attribute id -> p.id
+		 * Example: defaultPrefix: p, Attribute id -&gt; p.id
 		 * @param prefix Default prefix
 		 * @return
 		 */

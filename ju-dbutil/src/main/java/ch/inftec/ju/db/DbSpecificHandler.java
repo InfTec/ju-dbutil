@@ -38,7 +38,7 @@ interface DbSpecificHandler {
 	/**
 	 * Creates a DB Schema with the data from the DbSchemaBuilder.
 	 * 
-	 * @param builders
+	 * @param builder
 	 */
 	void createSchema(DbSchemaBuilder builder);
 }

@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
  * The list of acceptable selenium drivers. If the currently set driver (ju-testing-ee.selenium.driver) does not match any of the given
  * entries, then the first entry in the list will be used as default selenium driver.
  * 
- * @author Dalay Mabboux <dalay.mabboux@inftec.ch>
+ * @author dalay.mabboux@inftec.ch
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.TYPE, ElementType.METHOD })

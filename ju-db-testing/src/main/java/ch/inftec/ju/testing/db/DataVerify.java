@@ -19,8 +19,8 @@ import java.lang.annotation.Target;
  * characters will be stripped from the beginning of the method name to evalute the default verifier
  * class name. Examples:
  * <ul>
- *   <li>myTestMethod() -> MyTestMethod</li>
- *   <li>_01_myTestMethod2() -> MyTestMethod2</li>
+ *   <li>myTestMethod() -&gt; MyTestMethod</li>
+ *   <li>_01_myTestMethod2() -&gt; MyTestMethod2</li>
  * </ul>
  * @author Martin
  *
@@ -49,7 +49,7 @@ public @interface DataVerify {
 	 * a static inner class of the test class that has the same name as the test method
 	 * annotated with DataVerify, but starts with a capital letter.
 	 * <p>
-	 * Note: Any non-alphabetically leading characters will be stripped, e.g. _01_testMethod -> TestMethod 
+	 * Note: Any non-alphabetically leading characters will be stripped, e.g. _01_testMethod -&gt; TestMethod 
 	 * @return Sub type of DataVerifier
 	 */
 	Class<? extends DataVerifier> value() default DEFAULT_DATA_VERIFIER.class;

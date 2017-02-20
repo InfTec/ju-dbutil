@@ -14,7 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * ClassTester implementation to retrieve JUnit38 & 4.x test classes in the
+ * ClassTester implementation to retrieve JUnit38 &amp; 4.x test classes in the
  * classpath. You can specify if you want to include jar files in the search and
  * you can give a set of regex expression to specify the class names to include.
  * 
@@ -37,7 +37,7 @@ public class ClasspathSuiteTester implements ClassTester {
 	 *            all test classes in all packages.
 	 * @param baseTypes
 	 *            TODO
-	 * @param types
+	 * @param excludedBaseTypes
 	 */
 	public ClasspathSuiteTester(boolean searchInJars, String[] filterPatterns, SuiteType[] suiteTypes, Class<?>[] baseTypes,
 			Class<?>[] excludedBaseTypes) {
