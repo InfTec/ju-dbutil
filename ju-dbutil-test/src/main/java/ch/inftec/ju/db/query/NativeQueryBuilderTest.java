@@ -252,6 +252,19 @@ public class NativeQueryBuilderTest extends AbstractDbTest {
 		this.assertIdEquals(2L, qry1.getResultList(), 0);
 	}
 	
+	@Test
+	@DataSet("NativeQueryBuilderTest_dataTypes.xml")
+	public void noPrefix_orderByColumn_isMapped() throws Exception {
+		Query qry1 = QueryUtils.createNativeQuery(this.em)
+			.fromResourceRelativeTo(this.getClass(), "NativeQueryBuilderTest_noPrefix_orderByColumn_isMapped.sql")
+			.attributeMapping("bigIntegerNumber", "bigIntNumber")
+			.orderBy("bigIntegerNumber", Ordering.DESCENDING)
+			.createQuery();
+
+		Assert.assertEquals(2, qry1.getResultList().size());
+		this.assertIdEquals(2L, qry1.getResultList(), 0);
+	}
+	
 	private void assertIdEquals(Long expectedId, List<?> resultList, int index) {
 		if (resultList.get(0).getClass().isArray()) {
 			Assert.assertEquals(new Long(expectedId), ConversionUtils.toLong(((Object[]) resultList.get(index))[0]));

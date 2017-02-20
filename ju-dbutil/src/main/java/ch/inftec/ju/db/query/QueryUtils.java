@@ -262,7 +262,7 @@ public class QueryUtils {
 					xsOrderBy.assertEmptyOrText(", ");
 					xsOrderByNoPrefix.assertEmptyOrText(", ");
 					xsOrderBy.addText(this.getActualColumnName(ao.getAttributeName()));
-					xsOrderByNoPrefix.addText(ao.getAttributeName());
+					xsOrderByNoPrefix.addText(this.getActualColumnNameWithoutPrefix(ao.getAttributeName()));
 					if (ao.getOrdering() == Ordering.DESCENDING) {
 						xsOrderBy.addText(" desc");
 						xsOrderByNoPrefix.addText(" desc");
@@ -299,6 +299,17 @@ public class QueryUtils {
 			
 			if (!StringUtils.isEmpty(this.defaultPrefix) && !actualName.contains(".")) {
 				actualName = String.format("%s.%s", this.defaultPrefix, actualName);
+			}
+			
+			return actualName;
+		}
+		
+		private String getActualColumnNameWithoutPrefix(String attributeName) {
+			String actualName = getActualColumnName(attributeName);
+			
+			int dotIndex = actualName.indexOf(".");
+			if (dotIndex > 0) {
+				actualName = actualName.substring(dotIndex + 1);
 			}
 			
 			return actualName;
